@@ -121,21 +121,19 @@ class ApplicationLocked extends React.PureComponent<IProps, IState> {
             throw "Quit application";
           }
         }}
-        style={[styles.button, this.props.styleButton]}
+        style={styles.button}
         accessible
         accessibilityLabel={this.props.textButton}
       >
-        <Text style={[styles.closeButtonText, this.props.styleTextButton]}>
-          {this.props.textButton}
-        </Text>
+        <Text style={styles.closeButtonText}>{this.props.textButton}</Text>
       </TouchableOpacity>
     );
   };
 
   renderTimer = (minutes: number, seconds: number) => {
     return (
-      <View style={[styles.viewTimer, this.props.styleViewTimer]}>
-        <Text style={[styles.textTimer, this.props.styleTextTimer]}>
+      <View style={styles.viewTimer}>
+        <Text style={styles.textTimer}>
           {`${minutes < 10 ? "0" + minutes : minutes}:${
             seconds < 10 ? "0" + seconds : seconds
           }`}
@@ -145,11 +143,7 @@ class ApplicationLocked extends React.PureComponent<IProps, IState> {
   };
 
   renderTitle = () => {
-    return (
-      <Text style={[styles.title, this.props.styleTitle]}>
-        {this.props.textTitle || "Maximum attempts reached"}
-      </Text>
-    );
+    return <Text style={styles.title}>Maximum attempts reached</Text>;
   };
 
   renderIcon = () => {
@@ -184,34 +178,16 @@ class ApplicationLocked extends React.PureComponent<IProps, IState> {
           }}
         >
           {(state: any) => (
-            <View
-              style={[
-                styles.viewTextLock,
-                this.props.styleViewTextLock,
-                { opacity: state.opacity },
-              ]}
-            >
-              {this.props.titleComponent
-                ? this.props.titleComponent()
-                : this.renderTitle()}
-              {this.props.timerComponent
-                ? this.props.timerComponent()
-                : this.renderTimer(minutes, seconds)}
-              {this.props.iconComponent
-                ? this.props.iconComponent()
-                : this.renderIcon()}
-              <Text style={[styles.text, this.props.styleText]}>
-                {this.props.textDescription
-                  ? this.props.textDescription
-                  : `To protect your information, access has been locked for ${Math.ceil(
-                      this.props.timeToLock / 1000 / 60
-                    )} minutes.`}
+            <View style={[styles.viewTextLock, { opacity: state.opacity }]}>
+              {this.renderTitle()}
+              {this.renderTimer(minutes, seconds)}
+              {this.renderIcon()}
+              <Text style={styles.text}>
+                {`To protect your information, access has been locked for ${Math.ceil(
+                  this.props.timeToLock / 1000 / 60
+                )} minutes.`}
               </Text>
-              <Text style={[styles.text, this.props.styleText]}>
-                {this.props.textSubDescription
-                  ? this.props.textSubDescription
-                  : "Come back later and try again."}
-              </Text>
+              <Text style={styles.text}>"Come back later and try again."</Text>
             </View>
           )}
         </Animate>
@@ -227,13 +203,7 @@ class ApplicationLocked extends React.PureComponent<IProps, IState> {
         >
           {(state: any) => (
             <View style={{ opacity: state.opacity, flex: 1 }}>
-              <View
-                style={[styles.viewCloseButton, this.props.styleViewButton]}
-              >
-                {this.props.buttonComponent
-                  ? this.props.buttonComponent()
-                  : this.renderButton()}
-              </View>
+              <View style={styles.viewCloseButton}>{this.renderButton()}</View>
             </View>
           )}
         </Animate>
@@ -242,11 +212,7 @@ class ApplicationLocked extends React.PureComponent<IProps, IState> {
   };
 
   render() {
-    return (
-      <View style={[styles.container, this.props.styleMainContainer]}>
-        {this.renderErrorLocked()}
-      </View>
-    );
+    return <View style={styles.container}>{this.renderErrorLocked()}</View>;
   }
 }
 
@@ -303,7 +269,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: "rgb(230, 231, 233)",
+    borderColor: "#B2B2B2",
     marginBottom: grid.unit * 4,
   },
   viewCloseButton: {
